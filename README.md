@@ -2,7 +2,7 @@
     FastAPI + SQLAlchemy + Postgres 
 
 ## Scheme tables in DB
-    ![Scheme tables in db](scheme_tables_db.png)
+![Scheme tables in db](https://github.com/AlenaMuravyeva/payment_service/blob/main/scheme_tables_db.png)
     
 ## Setup
 
