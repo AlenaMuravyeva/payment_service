@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  postgres_service:
+    image: postgres:latest
+
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+
+    ports:
+      - 5432:5432
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U alena -d postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+
+  payment_service:
+    build: .
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    environment:
+      - ORIGIN:http://localhost
+      - SQLALCHEMY_DATABASE_URL:postgresql+asyncpg://alena:12345@postgres_service/postgres
+
+    env_file:
+      - ./.env
+
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/app
+    depends_on:
+      - postgres_service
+
+volumes:
+  postgres_data:
