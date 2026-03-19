@@ -5,6 +5,21 @@
 ![Scheme tables in db](https://github.com/AlenaMuravyeva/payment_service/blob/main/scheme_tables_db.png)
     
 ## Setup
+Create file .env in root app
+
+    Put data(example):
+        ORIGIN="http://localhost"
+        SQLALCHEMY_DATABASE_URL = "postgresql+asyncpg://alena:12345@postgres_service/postgres"
+        BANK_API_URL=''
+        BANK_USERNAME=''
+        BANK_PASSWORD=''
+        BANK_QR_TIMEOUT=''
+    
+        POSTGRES_HOST=127.0.0.1
+        POSTGRES_USER=alena
+        POSTGRES_PASSWORD=12345
+        POSTGRES_DATABASE=postgres
+        POSTGRES_PORT=5432
 
 You'll need Docker and Docker-Compose to run the application. With both dependencies installed, just run on a terminal:
 
